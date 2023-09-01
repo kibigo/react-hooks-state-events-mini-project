@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import CategoryFilter from "./CategoryFilter";
 import NewTaskForm from "./NewTaskForm";
 import TaskList from "./TaskList";
@@ -8,12 +8,19 @@ console.log("Here's the data you're working with");
 console.log({ CATEGORIES, TASKS });
 
 function App() {
+
+  const [selectedCategory, setSelectCategory] = useState("All");
+
+  const filterCategory = (category) => {
+    setSelectCategory(category)
+  }
+  
   return (
     <div className="App">
       <h2>My tasks</h2>
-      <CategoryFilter />
+      <CategoryFilter categories={CATEGORIES} selectCategory={selectedCategory} onSelectCategory={filterCategory}/>
       <NewTaskForm />
-      <TaskList />
+      <TaskList categories = {CATEGORIES} tasks={TASKS} />
     </div>
   );
 }
